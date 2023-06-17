@@ -5,6 +5,7 @@ import com.hw05.hw05.model.Author;
 import com.hw05.hw05.model.Book;
 import com.hw05.hw05.model.Genre;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,10 +25,11 @@ public class BookServiceImpl implements BookService {
         this.genreService = genreService;
     }
 
+    @Transactional
     @Override
     public Book addNew(Book book) {
         Book bookToCreate = initAuthorAndGenreInBook(book);
-       return bookDao.insert(bookToCreate);
+        return bookDao.insert(bookToCreate);
     }
 
     @Override
@@ -46,8 +48,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteByName(String name){
-        bookDao.deleteByName(name);
+    public void deleteByName(String name) {
+        Optional<Book> book = bookDao.getByName(name);
+        book.ifPresent(bookDao::delete);
     }
 
     @Override
@@ -56,7 +59,7 @@ public class BookServiceImpl implements BookService {
         return bookDao.update(bookToUpdate);
     }
 
-    private Book initAuthorAndGenreInBook(Book book){
+    private Book initAuthorAndGenreInBook(Book book) {
         Author author = authorService.getOrCreateNew(book.getAuthor());
         Genre genre = genreService.getOrCreateNew(book.getGenre());
         book.setAuthor(author);

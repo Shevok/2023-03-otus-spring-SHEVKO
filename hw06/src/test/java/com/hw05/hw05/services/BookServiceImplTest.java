@@ -1,18 +1,13 @@
 package com.hw05.hw05.services;
 
-import com.hw05.hw05.DAO.AuthorDaoJdbc;
-import com.hw05.hw05.DAO.BookDaoJdbc;
-import com.hw05.hw05.DAO.GenreDaoJdbc;
 import com.hw05.hw05.model.Author;
 import com.hw05.hw05.model.Book;
 import com.hw05.hw05.model.Genre;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
-import org.springframework.context.annotation.Import;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,9 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Сервси для работы с книгами должен")
 @JdbcTest
-@Import({BookServiceImpl.class, BookDaoJdbc.class,
-        AuthorServiceImpl.class, AuthorDaoJdbc.class,
-        GenreServiceImpl.class, GenreDaoJdbc.class})
 class BookServiceImplTest {
 
     public static final String BOOK_NAME = "Веселые истории";
@@ -37,7 +29,7 @@ class BookServiceImplTest {
     void addNew() {
         Author author = new Author(1, "Егоров");
         Genre genre = new Genre(1, "Комедия");
-        Book expectedBook = new Book( "Книга", author, genre);
+        Book expectedBook = new Book("Книга", author, genre);
         Book actualBook = bookServiceImpl.addNew(expectedBook);
         Assertions.assertThat(actualBook).isNotNull();
         assertEquals(actualBook.getName(), expectedBook.getName());
@@ -100,11 +92,11 @@ class BookServiceImplTest {
         assertEquals(updatedBook.getId(), bookToUpdate.getId());
     }
 
-    private Book initBook(String bookName){
+    private Book initBook(String bookName) {
         Author author = new Author();
         Genre genre = new Genre();
         author.setId(1);
         genre.setId(1);
-        return new Book( bookName, author, genre);
+        return new Book(bookName, author, genre);
     }
 }

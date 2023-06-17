@@ -15,7 +15,7 @@ public interface BookDao {
 
     List<Book> getAll();
 
-    void deleteByName(String name);
+    void delete(Book book);
 
     Book update(Book book);
 }

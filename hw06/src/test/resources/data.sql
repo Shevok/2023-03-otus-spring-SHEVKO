@@ -11,3 +11,8 @@ insert into Books ( `name`, authorID, genreID) values ( 'Шерлок', 2, 2);
 insert into Books ( `name`, authorID, genreID) values ( 'Грустная история', 3, 3);
 insert into Books ( `name`, authorID, genreID) values ( 'Шерлок 2', 2, 2);
 
+insert into Comments ( content, bookId) values ( 'Хорошая книга', 1);
+insert into Comments ( content, bookId) values ( 'Нормальная книга', 1);
+insert into Comments ( content, bookId) values ( '5 звезд', 2);
+insert into Comments ( content, bookId) values ( 'Неплохо', 3);
+
