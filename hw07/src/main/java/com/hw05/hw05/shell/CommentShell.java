@@ -31,7 +31,7 @@ public class CommentShell {
     }
 
     @ShellMethod(value = "get comment", key = {"g c", "get comment"})
-    public void getCommentById(@ShellOption(value = {"-id"}) Long commentId) {
+    public void getCommentById(@ShellOption(value = {"--id"}) Long commentId) {
         Optional<Comment> comment = commentService.getById(commentId);
         shellHelper.validateOptionalObjAndShowResult(comment, commentPrintConverter);
     }
@@ -50,7 +50,7 @@ public class CommentShell {
     }
 
     @ShellMethod(value = "delete comment", key = {"d c", "delete comment"})
-    public void deleteCommentById(@ShellOption(value = {"-id"}) Long commentId) {
+    public void deleteCommentById(@ShellOption(value = {"--id"}) Long commentId) {
         commentService.deleteById(commentId);
         List<Comment> comments = commentService.getAll();
         shellHelper.validateObjColAndShowResult(comments, commentPrintConverter);

@@ -15,7 +15,5 @@ public interface AuthorService {
 
     List<Author> getAll();
 
-    void showAll();
-
     Author getOrCreateNew(Author author);
 }

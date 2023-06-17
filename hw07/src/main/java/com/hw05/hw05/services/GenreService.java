@@ -15,7 +15,5 @@ public interface GenreService {
 
     List<Genre> getAll();
 
-    void showAll();
-
     Genre getOrCreateNew(Genre genre);
 }

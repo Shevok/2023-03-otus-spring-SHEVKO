@@ -1,8 +1,9 @@
 package com.hw05.hw05.services;
 
-import com.hw05.hw05.DAO.AuthorDao;
+import com.hw05.hw05.DAO.AuthorRepository;
 import com.hw05.hw05.model.Author;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,41 +11,37 @@ import java.util.Optional;
 @Service
 public class AuthorServiceImpl implements AuthorService {
 
-    private final AuthorDao authorDao;
+    private final AuthorRepository authorRepository;
 
-    public AuthorServiceImpl(AuthorDao authorDao) {
-
-        this.authorDao = authorDao;
+    public AuthorServiceImpl(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
     }
 
+
+    @Transactional
     @Override
     public Author addNew(Author author) {
-        return authorDao.insert(author);
+        return authorRepository.save(author);
     }
 
     @Override
     public Optional<Author> getById(long id) {
-        return authorDao.getById(id);
+        return authorRepository.findById(id);
     }
 
     @Override
     public Optional<Author> getByName(String name) {
-        return authorDao.getByName(name);
+        return authorRepository.findByName(name);
     }
 
     @Override
     public List<Author> getAll() {
-        return authorDao.getAll();
-    }
-
-    @Override
-    public void showAll() {
-        System.out.println(getAll());
+        return authorRepository.findAll();
     }
 
     @Override
     public Author getOrCreateNew(Author author) {
-        Optional<Author> authorFomDB = authorDao.getByName(author.getName());
+        Optional<Author> authorFomDB = authorRepository.findByName(author.getName());
         return authorFomDB.orElseGet(() -> addNew(author));
     }
 }
